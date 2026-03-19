@@ -44,32 +44,34 @@ public:
         for (int i = 0; i < position && temp; ++i) //runs until it reaches pos and temp not null
             temp = temp->next; //moves temp forward along list 
 
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
+        if (!temp) { //check if temp null
+            cout << "Position exceeds list size. Node not inserted.\n"; //means pos is out of bounds for list
+            delete newNode; //delete node to insert to prevent memory leak
+            return; // exit funciton
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
-        temp->next = newNode;
+        //after position found
+        newNode->next = temp->next;  //set next for newNode to what temp's next is
+        newNode->prev = temp; //set newNode prev to temp because it's inserted after temp
+        if (temp->next) //check if temp has next
+            temp->next->prev = newNode; //update so node points to newNode, npt temp
+        else //if temp has no next node (tail)
+            tail = newNode; //set tail to newNode
+        temp->next = newNode; //temp points to newNode,finally inserted after
     }
 
+    //find first node that has value and delete
     void delete_val(int value) {
-        if (!head) return;
+        if (!head) return; //if list empty, return and exit
 
-        Node* temp = head;
+        Node* temp = head; ////temp ptr to start from head of list
 
-        while (temp && temp->data != value)
-            temp = temp->next;
+        while (temp && temp->data != value) //runs while temp isn't null and target isn't found
+            temp = temp->next; //moves temp along list
 
-        if (!temp) return;
+        if (!temp) return; //if temp null, return
 
-        if (temp->prev)
+        if (temp->prev) //
             temp->prev->next = temp->next;
         else
             head = temp->next;
