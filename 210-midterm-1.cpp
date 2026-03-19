@@ -221,12 +221,31 @@ public:
     }
 
     void every_other_element() { //prints every other element in list
+        Node* current = head; //ptr to node to be printed, starting at head
+        if (!current) { //if current is null, list is empty
+            cout << "List is empty." << endl; //print message
+            return; //return to main
+        }
+        while (current) { //runs while current is not null 
+            cout << current->data << " "; //print current node data
 
+            if (current->next) { //must check if next node exists to keep within bounds of list
+                current = current->next->next; //moves current up list twice, rather than once
+            }
+            else { //if bounds reached
+                current = nullptr; //current set to null 
+            }
+
+        }
+        cout << endl; //prints blank line
     }
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning, prints 4 global consts
+
+    DoublyLinkedList; //creates obj and runs default constructor
+                      //head/tail set to null, empty list
 
 
     return 0;
