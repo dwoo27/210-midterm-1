@@ -123,65 +123,70 @@ public:
         Node* tempPrev = temp->prev; //ptr for temp prev node
         tempPrev->next = temp->next; //prev node set to next, skips
         temp->next->prev = tempPrev; //temps next node's prev is set to node before temp
-        delete temp; //delete temp
+        delete temp; //delete temp node
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+    //adds new node to end of list, takes in data val
+    void push_back(int v) { 
+        Node* newNode = new Node(v); //new node declared to be added
+        if (!tail) //if tail is null, list empty
+            head = tail = newNode; //head/tail set to newNOde
+        else { //list is populated
+            tail->next = newNode; //newNode assigned after tail
+            newNode->prev = tail; //newNode prev set to tail
+            tail = newNode; //tail resassigned to newNode
         }
     }
 
+    //adds new node to front of list, takes in data val
     void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+        Node* newNode = new Node(v); //new node declared to be added
+        if (!head) //if head is null, list empty
+            head = tail = newNode; //head/tail set to newNode
+        else { //list is populated
+            newNode->next = head; //newNode assigned before head
+            head->prev = newNode; //head node prev set to newNode
+            head = newNode; //head reassigned to newNode
         }
     }
 
+    //removes first node
     void pop_front() {
 
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
+        if (!head) { //checks if head is null, list empty
+            cout << "List is empty." << endl; //print message
+            return; //return to main
         }
 
-        Node* temp = head;
+        Node* temp = head; //temp stores node to be removed
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) { //checks if more than one node in list
+            head = head->next; //head set to next in list
+            head->prev = nullptr; //head prev set to null
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else //only one node in list
+            head = tail = nullptr; //both head/tail set to null, now empty
+        delete temp; //delete temp node
     }
 
+    //removes last node
     void pop_back() {
-        if (!tail) {
-            cout << "List is empty." << endl;
-            return;
+        if (!tail) { //checks if tail is null, list empty
+            cout << "List is empty." << endl; //print message
+            return; //return to main
         }
-        Node* temp = tail;
+        Node* temp = tail; //ptr to hold node to be deleted
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
+        if (tail->prev) { //if more than one node
+            tail = tail->prev; //tail reassigned to second to last node
+            tail->next = nullptr; //tail next set to null
         }
-        else
-            head = tail = nullptr;
-        delete temp;
+        else //only one node in list
+            head = tail = nullptr; //both head/tail,set to null, now empty
+        delete temp; //delete temp node
     }
 
+    //
     ~DoublyLinkedList() {
         while (head) {
             Node* temp = head;
