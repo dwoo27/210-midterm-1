@@ -1,14 +1,18 @@
-#include <iostream>
-using namespace std;
+#include <iostream> //gives access to use cout/endl
+using namespace std; //for cout
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+//global const values 
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; 
 
-class DoublyLinkedList {
-private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
+
+class DoublyLinkedList { //class declaration
+private: 
+    struct Node {//struct as attribute to serve as node in class for dbl linked list
+        int data; //holds data
+        Node* prev; //holds pointer to prev node
+        Node* next; //holds pointer to next node
+        
+        //parameter constructor can take in int for data value and pointers for prev/next
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val;
             prev = p;
@@ -16,27 +20,29 @@ private:
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; //pointer for head, first node in list
+    Node* tail; //pointer for tail, last pointer in list
 
 public:
+    //deafault constructor, asssigns in null for head/tail
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    //function inserts new node with value after node with position
     void insert_after(int value, int position) {
-        if (position < 0) {
+        if (position < 0) { //checks for invalid position
             cout << "Position must be >= 0." << endl;
-            return;
+            return; //exit function if invalid pos recieved
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
+        Node* newNode = new Node(value); //creates new node with value as data and null prev/next
+        if (!head) { //checks if list is empty
+            head = tail = newNode; //lets new node become head/tail
+            return; //exit function after
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+        Node* temp = head; //temp ptr to start from head of list
+        for (int i = 0; i < position && temp; ++i) //runs until it reaches pos and temp not null
+            temp = temp->next; //moves temp forward along list 
 
         if (!temp) {
             cout << "Position exceeds list size. Node not inserted.\n";
