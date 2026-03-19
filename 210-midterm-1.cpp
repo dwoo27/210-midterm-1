@@ -30,7 +30,7 @@ public:
     //function inserts new node with value after node with position
     void insert_after(int value, int position) {
         if (position < 0) { //checks for invalid position
-            cout << "Position must be >= 0." << endl;
+            cout << "Position must be >= 0." << endl; //prints message
             return; //exit function if invalid pos recieved
         }
 
@@ -45,6 +45,7 @@ public:
             temp = temp->next; //moves temp forward along list 
 
         if (!temp) { //check if temp null
+            //prints message
             cout << "Position exceeds list size. Node not inserted.\n"; //means pos is out of bounds for list
             delete newNode; //delete node to insert to prevent memory leak
             return; // exit funciton
@@ -64,61 +65,65 @@ public:
     void delete_val(int value) {
         if (!head) return; //if list empty, return and exit
 
-        Node* temp = head; ////temp ptr to start from head of list
+        Node* temp = head; //temp ptr to start from head of list
 
         while (temp && temp->data != value) //runs while temp isn't null and target isn't found
             temp = temp->next; //moves temp along list
 
         if (!temp) return; //if temp null, return
 
-        if (temp->prev) //
-            temp->prev->next = temp->next;
-        else
-            head = temp->next;
+        if (temp->prev) //checks if temp has previous 
+            temp->prev->next = temp->next; //sets temp prev's next to temp next 
+                                           //to account for incoming gap
+        else //if temp prev is null, temp is head 
+            head = temp->next; //head moves to next node
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
-            tail = temp->prev;
+        if (temp->next) //checks if temp has next
+            temp->next->prev = temp->prev; //sets temp's next prev to temp prev
+                                           //to account for incoming gap
+        else //if temp next is null, temp is tail
+            tail = temp->prev; //til moves to prev node
 
-        delete temp;
+        delete temp; //delete temp node, node searched for
     }
-
+    //deletes node at given pos
     void delete_pos(int pos) {
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
+        if (!head) { //checks for empty list
+            cout << "List is empty." << endl; //print empty list
+            return; //nothing to be deleted, return to main
         }
 
-        if (pos == 1) {
-            pop_front();
-            return;
+        if (pos == 1) { //if pos is 1, first node
+            pop_front(); //call pop_front() 
+            return; //return to main
         }
 
-        Node* temp = head;
+        Node* temp = head; //temp ptr to start from head of list
 
-        for (int i = 1; i < pos; i++) {
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
+        for (int i = 1; i < pos; i++) { //runs until pos is reached, starts at 1
+                                        //already covered by prev if statement
+            if (!temp) { //checks if temp is null
+                cout << "Position doesn't exist." << endl; //print message
+                return; //return to main 
             }
-            else
+            else //moves temp up the list
                 temp = temp->next;
         }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
+        if (!temp) { //checks if temp is null
+            cout << "Position doesn't exist." << endl; //print message
+            return; //pos still invalid, return to main
         }
 
-        if (!temp->next) {
-            pop_back();
-            return;
+        if (!temp->next) { //if temp next is null, temp is tail
+            pop_back(); //call pop_back()
+            return; //return to main 
         }
 
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        //case if pos is found and valid
+        Node* tempPrev = temp->prev; //ptr for temp prev node
+        tempPrev->next = temp->next; //prev node set to next, skips
+        temp->next->prev = tempPrev; //temps next node's prev is set to node before temp
+        delete temp; //delete temp
     }
 
     void push_back(int v) {
