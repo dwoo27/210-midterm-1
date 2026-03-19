@@ -14,9 +14,9 @@ private:
         
         //parameter constructor can take in int for data value and pointers for prev/next
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val;
-            prev = p;
-            next = n;
+            data = val; //sets data to int val taken in
+            prev = p; //sets prev to null
+            next = n; //sets next to null
         }
     };
 
@@ -242,11 +242,22 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning, prints 4 global consts
+    cout << "Dummy statement: " << MIN_NR + MIN_LS + MAX_NR + MAX_LS << endl;  // dummy statement to avoid compiler warning, prints 4 global consts
 
-    DoublyLinkedList; //creates obj and runs default constructor
-                      //head/tail set to null, empty list
+    DoublyLinkedList list; //creates obj and runs default constructor
+                           //head/tail set to null, empty list
+    
+    list.push_back(1); //adds nodes to back with vals 1-5, populating list
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
 
+    cout << "Every other element: " << endl; //print message
+    list.every_other_element(); //calls every_other_element()
+
+    cout << "Whole list: " << endl; //print message
+    list.print(); //calls print()
 
     return 0;
 }
