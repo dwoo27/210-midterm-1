@@ -186,38 +186,42 @@ public:
         delete temp; //delete temp node
     }
 
-    //
+    //destructor, runs when DoublyLinkedlist obj is destroyed
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        while (head) { //while head is not null 
+            Node* temp = head; //ptr to node to be deleted, start at head
+            head = head->next; //sets head to next node in list
+            delete temp; //deletes node 
         }
     }
-    void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
+    void print() { //prints list
+        Node* current = head; //ptr to node to be deleted, starting at head
+        if (!current) { //if current is null, list empty
+            cout << "List is empty." << endl; //print messaged
+            return; //return to main
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { //while current not null
+            cout << current->data << " "; //print data of current node
+            current = current->next; //moves current allong list
         }
-        cout << endl;
+        cout << endl; //print blank line
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
+    void print_reverse() { //prints list in reverse
+        Node* current = tail; //ptr to node to be printed, starting at tail
+        if (!current) { //if current is null, list is empty
+            cout << "List is empty." << endl; //print message
+            return; //return to main
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+        while (current) { //runs while current is not null 
+            cout << current->data << " "; //print current node data
+            current = current->prev; //moves current down list
         }
-        cout << endl;
+        cout << endl; //prints blank line
+    }
+
+    void every_other_element() { //prints every other element in list
+
     }
 };
 
